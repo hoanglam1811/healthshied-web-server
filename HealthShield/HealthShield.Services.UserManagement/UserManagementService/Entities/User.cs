@@ -1,6 +1,6 @@
 ﻿namespace UserManagementService.Entities
 {
-	public class User
+	public class User : BaseEntity
 	{
 		public int Id { get; set; }
 		public string FullName { get; set; }
