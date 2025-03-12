@@ -6,9 +6,9 @@ namespace UserManagementService.Services
 {
 	public class UserServiceImpl : UserService.UserServiceBase
 	{
-		private readonly UserDbContext _dbContext;
+		private readonly VaccinationDbContext _dbContext;
 
-		public UserServiceImpl(UserDbContext dbContext)
+		public UserServiceImpl(VaccinationDbContext dbContext)
 		{
 			_dbContext = dbContext;
 		}
