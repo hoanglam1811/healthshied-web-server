@@ -10,5 +10,6 @@
 
 		public User User { get; set; }  // Navigation property
     public List<ChildAllergy> ChildAllergies { get; set; }
+    public List<Appointment> Appointments { get; set; }
 	}
 }

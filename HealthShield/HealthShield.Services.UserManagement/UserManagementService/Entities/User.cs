@@ -10,6 +10,8 @@
 		public string Role { get; set; } // (Admin, Staff, Parent)
 
 		public List<Child> Children { get; set; } = new();
+		public List<Feedback> Feedbacks { get; set; } = new();
+		public List<Appointment> Appointments { get; set; } = new();
 	}
 
 }

@@ -6,10 +6,12 @@ namespace UserManagementService.DbContexts
 {
 	public class UserDbContext : DbContext
 	{
+		public DbSet<Appointment> Appointments { get; set; }
 		public DbSet<User> Users { get; set; }
 		public DbSet<Child> Children { get; set; }
 		public DbSet<Allergy> Allergies { get; set; }
 		public DbSet<ChildAllergy> ChildAllergies { get; set; }
+		public DbSet<Feedback> Feedbacks { get; set; }
 
 		public UserDbContext(DbContextOptions<UserDbContext> options) : base(options) { }
 
@@ -24,8 +26,11 @@ namespace UserManagementService.DbContexts
         .WithMany(a => a.ChildAllergies)
         .HasForeignKey(ca => ca.AllergyId)
         .OnDelete(DeleteBehavior.Cascade);
-      modelBuilder.Entity<ChildAllergy>()
-        .HasNoKey();
+      modelBuilder.Entity<Appointment>()
+        .HasOne(a => a.AssignedStaff) 
+        .WithMany(u => u.Appointments) 
+        .HasForeignKey(a => a.AssignedStaffId) 
+        .OnDelete(DeleteBehavior.Cascade);
 		}
 	}
 }
