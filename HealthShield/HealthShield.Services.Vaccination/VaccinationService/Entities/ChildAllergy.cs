@@ -1,6 +1,6 @@
 namespace VaccinationService.Entities
 {
-	public class Allergy
+	public class ChildAllergy
 	{
 		public int Id { get; set; }
 		public int UserId { get; set; }  // FK tới User
