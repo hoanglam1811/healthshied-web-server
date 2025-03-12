@@ -1,11 +1,14 @@
 namespace VaccinationService.Entities
 {
-	public class Vaccine
+	public class Vaccine : BaseEntity
 	{
 		public int Id { get; set; }
-		public int UserId { get; set; }  // FK tới User
-		public string FullName { get; set; }
-		public DateTime Birthday { get; set; }
-		public string Gender { get; set; }
+		public string Name { get; set; } 
+		public string Description { get; set; }
+		public string RecommendedAgeRange { get; set; }
+		public string Contraindications { get; set; }
+		public decimal Price { get; set; }
+
+		public List<PackageVaccine> PackageVaccines { get; set; } = new();
 	}
 }

@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package vaccinations;
+
+service VaccinationService {
+  rpc GetVaccineById (VaccineRequest) returns (VaccineResponse);
+  rpc CreateVaccine (CreateVaccineRequest) returns (VaccineResponse);
+
+  rpc GetPackageById (PackageRequest) returns (PackageResponse);
+  rpc CreatePackage (CreatePackageRequest) returns (PackageResponse);
+  
+  rpc GetVaccinationRecordById (VaccinationRecordRequest) returns (VaccinationRecordResponse);
+  rpc CreateVaccinationRecord (CreateVaccinationRecordRequest) returns (VaccinationRecordResponse);
+}
+
+message VaccineRequest {
+  int32 vaccine_id = 1;
+}
+
+message VaccineResponse {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  string recommended_age_range = 4;
+  string contraindications = 5;
+  double price = 6;
+}
+
+message CreateVaccineRequest {
+  string name = 1;
+  string description = 2;
+  string recommended_age_range = 3;
+  string contraindications = 4;
+  double price = 5;
+}
+
+message PackageRequest {
+  int32 package_id = 1;
+}
+
+message PackageResponse {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  repeated VaccineResponse vaccines = 5;
+}
+
+message CreatePackageRequest {
+  string name = 1;
+  string description = 2;
+  double price = 3;
+  repeated int32 vaccine_ids = 4;
+}
+
+message VaccinationRecordRequest {
+  int32 record_id = 1;
+}
+
+message VaccinationRecordResponse {
+  int32 id = 1;
+  int32 appointment_id = 2;
+  int32 administered_by = 3;
+  string reaction_notes = 4;
+}
+
+message CreateVaccinationRecordRequest {
+  int32 appointment_id = 1;
+  int32 administered_by = 2;
+  string reaction_notes = 3;
+}

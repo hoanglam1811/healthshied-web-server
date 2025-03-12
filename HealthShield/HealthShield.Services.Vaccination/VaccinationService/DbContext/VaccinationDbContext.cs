@@ -1,22 +1,31 @@
-// using Microsoft.EntityFrameworkCore;
-// using UserManagementService.Entities;
+using Microsoft.EntityFrameworkCore;
+using VaccinationService.Entities;
 
+namespace VaccinationService.DbContexts
+{
+	public class VaccinationDbContext : DbContext
+	{
+		public DbSet<Vaccine> Vaccines { get; set; }
+		public DbSet<VaccinationPackage> Packages { get; set; }
+		public DbSet<PackageVaccine> PackageVaccines { get; set; }
+		public DbSet<VaccinationRecord> VaccinationRecords { get; set; }
 
-// namespace UserManagementService.DbContexts
-// {
-// 	public class UserDbContext : DbContext
-// 	{
-// 		public DbSet<User> Users { get; set; }
-// 		public DbSet<Child> Children { get; set; }
+		public VaccinationDbContext(DbContextOptions<VaccinationDbContext> options) : base(options) { }
 
-// 		public UserDbContext(DbContextOptions<UserDbContext> options) : base(options) { }
+		protected override void OnModelCreating(ModelBuilder modelBuilder)
+		{
+			modelBuilder.Entity<PackageVaccine>()
+				.HasKey(pv => new { pv.PackageId, pv.VaccineId });
 
-// 		protected override void OnModelCreating(ModelBuilder modelBuilder)
-// 		{
-// 			modelBuilder.Entity<User>()
-// 				.HasMany(u => u.Children)
-// 				.WithOne(c => c.User)
-// 				.HasForeignKey(c => c.UserId);
-// 		}
-// 	}
-// }
+			modelBuilder.Entity<PackageVaccine>()
+				.HasOne(pv => pv.Package)
+				.WithMany(p => p.PackageVaccines)
+				.HasForeignKey(pv => pv.PackageId);
+
+			modelBuilder.Entity<PackageVaccine>()
+				.HasOne(pv => pv.Vaccine)
+				.WithMany(v => v.PackageVaccines)
+				.HasForeignKey(pv => pv.VaccineId);
+		}
+	}
+}
