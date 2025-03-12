@@ -1,0 +1,57 @@
+syntax = "proto3";
+package users;
+
+service UserService {
+  rpc GetUserById (UserRequest) returns (UserResponse);
+  rpc GetChildById (ChildRequest) returns (ChildResponse);
+  rpc GetStaffScheduleById (StaffScheduleRequest) returns (StaffScheduleResponse);
+}
+
+message UserRequest {
+  int32 user_id = 1;
+}
+
+message UserResponse {
+  int32 id = 1;
+  string full_name = 2;
+  string email = 3;
+  string phone = 4;
+  string role = 5;
+  repeated StaffSchedule staff_schedules = 6;
+}
+
+message ChildRequest {
+  int32 child_id = 1;
+}
+
+message ChildResponse {
+  int32 id = 1;
+  int32 user_id = 2;
+  string full_name = 3;
+  string birthday = 4;
+  string gender = 5;
+}
+
+message StaffScheduleRequest {
+  int32 staff_schedule_id = 1;
+}
+
+message StaffScheduleResponse {
+  int32 id = 1;
+  int32 staff_id = 2;
+  string shift_date = 3;
+  ShiftTime shift_time = 4;
+}
+
+enum ShiftTime {
+  MORNING = 0;
+  AFTERNOON = 1;
+  EVENING = 2;
+}
+
+message StaffSchedule {
+  int32 id = 1;
+  int32 staff_id = 2;
+  string shift_date = 3;
+  ShiftTime shift_time = 4;
+}

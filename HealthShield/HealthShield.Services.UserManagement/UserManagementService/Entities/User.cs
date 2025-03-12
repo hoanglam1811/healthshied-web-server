@@ -6,10 +6,11 @@
 		public string FullName { get; set; }
 		public string Email { get; set; }
 		public string Phone { get; set; }
-		public string PasswordHash { get; set; }  // Mã hóa mật khẩu
-		public string Role { get; set; } // (Admin, Staff, Parent)
+		public string PasswordHash { get; set; } 
+		public string Role { get; set; }
 
 		public List<Child> Children { get; set; } = new();
+		public List<StaffSchedule> StaffSchedules { get; set; } = new();
 	}
 
 }
