@@ -12,6 +12,7 @@ namespace UserManagementService.DbContexts
 		public DbSet<Allergy> Allergies { get; set; }
 		public DbSet<ChildAllergy> ChildAllergies { get; set; }
 		public DbSet<Feedback> Feedbacks { get; set; }
+		public DbSet<StaffSchedule> StaffSchedules { get; set; }
 
 		public UserDbContext(DbContextOptions<UserDbContext> options) : base(options) { }
 

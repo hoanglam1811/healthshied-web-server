@@ -11,7 +11,7 @@ using UserManagementService.DbContexts;
 namespace UserManagementService.Migrations
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20250312133747_Init")]
+    [Migration("20250312134724_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -201,6 +201,41 @@ namespace UserManagementService.Migrations
                     b.ToTable("Feedbacks");
                 });
 
+            modelBuilder.Entity("UserManagementService.Entities.StaffSchedule", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("ShiftDate")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int>("ShiftTime")
+                        .HasColumnType("int");
+
+                    b.Property<int>("StaffId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("StaffSchedules");
+                });
+
             modelBuilder.Entity("UserManagementService.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -310,6 +345,13 @@ namespace UserManagementService.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("UserManagementService.Entities.StaffSchedule", b =>
+                {
+                    b.HasOne("UserManagementService.Entities.User", null)
+                        .WithMany("StaffSchedules")
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("UserManagementService.Entities.Allergy", b =>
                 {
                     b.Navigation("ChildAllergies");
@@ -334,6 +376,8 @@ namespace UserManagementService.Migrations
                     b.Navigation("Children");
 
                     b.Navigation("Feedbacks");
+
+                    b.Navigation("StaffSchedules");
                 });
 #pragma warning restore 612, 618
         }

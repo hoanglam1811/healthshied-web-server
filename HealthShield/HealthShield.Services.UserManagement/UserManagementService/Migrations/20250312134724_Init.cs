@@ -93,6 +93,32 @@ namespace UserManagementService.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
+                name: "StaffSchedules",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    StaffId = table.Column<int>(type: "int", nullable: false),
+                    ShiftDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ShiftTime = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Status = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StaffSchedules", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_StaffSchedules_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id");
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
                 name: "Appointments",
                 columns: table => new
                 {
@@ -227,6 +253,11 @@ namespace UserManagementService.Migrations
                 name: "IX_Feedbacks_UserId",
                 table: "Feedbacks",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StaffSchedules_UserId",
+                table: "StaffSchedules",
+                column: "UserId");
         }
 
         /// <inheritdoc />
@@ -237,6 +268,9 @@ namespace UserManagementService.Migrations
 
             migrationBuilder.DropTable(
                 name: "Feedbacks");
+
+            migrationBuilder.DropTable(
+                name: "StaffSchedules");
 
             migrationBuilder.DropTable(
                 name: "Allergies");
