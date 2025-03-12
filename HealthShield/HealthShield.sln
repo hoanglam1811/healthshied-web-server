@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HealthShield", "HealthShield\HealthShield.csproj", "{AB947F9F-CEB1-4C95-AB21-786881CE4A1C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HealthShield", "HealthShield\HealthShield.csproj", "{AB947F9F-CEB1-4C95-AB21-786881CE4A1C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UserManagementService", "HealthShield.Services.UserManagement\UserManagementService\UserManagementService.csproj", "{5D03FE43-2A66-44C8-B381-E1484FAA87A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UserManagementService", "HealthShield.Services.UserManagement\UserManagementService\UserManagementService.csproj", "{5D03FE43-2A66-44C8-B381-E1484FAA87A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VaccinationService", "HealthShield.Services.Vaccination\VaccinationService\VaccinationService.csproj", "{88EA948E-F8DF-4E0D-BAAC-42F4194066A6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VaccinationService", "HealthShield.Services.Vaccination\VaccinationService\VaccinationService.csproj", "{88EA948E-F8DF-4E0D-BAAC-42F4194066A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PaymentService", "HealthShield.Services.Payment\PaymentService\PaymentService.csproj", "{EF1FA500-8539-4684-AEAD-F41959F83DBC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PaymentService", "HealthShield.Services.Payment\PaymentService\PaymentService.csproj", "{EF1FA500-8539-4684-AEAD-F41959F83DBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
