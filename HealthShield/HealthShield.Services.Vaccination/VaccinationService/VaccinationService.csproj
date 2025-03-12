@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Protos\vaccination.proto" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
     <Protobuf Include="Protos\vaccination.proto" GrpcServices="Server" />
   </ItemGroup>
