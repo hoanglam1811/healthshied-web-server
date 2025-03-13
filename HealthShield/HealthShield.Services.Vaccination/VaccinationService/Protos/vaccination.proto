@@ -5,16 +5,31 @@ package vaccinations;
 service VaccinationService {
   rpc GetVaccineById (VaccineRequest) returns (VaccineResponse);
   rpc CreateVaccine (CreateVaccineRequest) returns (VaccineResponse);
+  rpc GetAllVaccines (Empty) returns (VaccinesResponse);
+  rpc UpdateVaccine (UpdateVaccineRequest) returns (VaccineResponse);
+  rpc DeleteVaccine (VaccineRequest) returns (VaccineResponse);
 
   rpc GetPackageById (PackageRequest) returns (PackageResponse);
   rpc CreatePackage (CreatePackageRequest) returns (PackageResponse);
+  rpc GetAllPackages (Empty) returns (PackageResponse);
+  // rpc UpdatePackage () returns (PackageResponse);
+  rpc DeletePackage (PackageRequest) returns (PackageResponse);
   
   rpc GetVaccinationRecordById (VaccinationRecordRequest) returns (VaccinationRecordResponse);
   rpc CreateVaccinationRecord (CreateVaccinationRecordRequest) returns (VaccinationRecordResponse);
+  rpc GetAllVaccinationRecords (Empty) returns (VaccinationRecordResponse);
+  // rpc UpdateVaccinationRecord () returns (VaccinationRecordResponse);
+  rpc DeleteVaccinationRecord (VaccinationRecordRequest) returns (VaccinationRecordResponse);
 }
+
+message Empty {}
 
 message VaccineRequest {
   int32 vaccine_id = 1;
+}
+
+message VaccinesResponse {
+  repeated VaccineResponse vaccines = 1;
 }
 
 message VaccineResponse {
@@ -34,8 +49,21 @@ message CreateVaccineRequest {
   double price = 5;
 }
 
+message UpdateVaccineRequest {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  string recommended_age_range = 4;
+  string contraindications = 5;
+  double price = 6;
+}
+
 message PackageRequest {
   int32 package_id = 1;
+}
+
+message PackagesResponse {
+  repeated PackageResponse packages = 1;
 }
 
 message PackageResponse {
@@ -55,6 +83,10 @@ message CreatePackageRequest {
 
 message VaccinationRecordRequest {
   int32 record_id = 1;
+}
+
+message VaccinationsResponse {
+  repeated VaccinationRecordResponse vacccination_records = 1;
 }
 
 message VaccinationRecordResponse {
