@@ -14,19 +14,20 @@ public class VaccinationController : ControllerBase
         _grpcClient = grpcClient;
     }
 
-    // [HttpGet("vaccine")]
-    // public async Task<IActionResult> GetVaccines()
-    // {
-    //     try
-    //     {
-    //         var response = await _grpcClient.GetVaccinationRecordByIdAsync(request);
-    //         return Ok(response);
-    //     }
-    //     catch (RpcException ex)
-    //     {
-    //         return StatusCode((int)ex.StatusCode, ex.Status.Detail);
-    //     }
-    // }
+    [HttpGet("vaccine")]
+    public async Task<IActionResult> GetVaccines()
+    {
+        try
+        {
+            var request = new Empty();
+            var response = await _grpcClient.GetAllVaccinesAsync(request);
+            return Ok(response);
+        }
+        catch (RpcException ex)
+        {
+            return StatusCode((int)ex.StatusCode, ex.Status.Detail);
+        }
+    }
 
     [HttpGet("vaccine/{id}")]
     public async Task<IActionResult> GetVaccineById(int id)
@@ -50,6 +51,47 @@ public class VaccinationController : ControllerBase
         {
             var response = await _grpcClient.CreateVaccineAsync(request);
             return Ok(response);
+        }
+        catch (RpcException ex)
+        {
+            return StatusCode((int)ex.StatusCode, ex.Status.Detail);
+        }
+    }
+
+    [HttpPut("vaccine/{id}")]
+    public async Task<IActionResult> UpdateVaccine(int id, [FromBody] CreateVaccineRequest request)
+    {
+        try
+        {
+          var requests = new UpdateVaccineRequest
+          {
+              Id = id,
+              Name = request.Name,
+              Description = request.Description,
+              RecommendedAgeRange = request.RecommendedAgeRange,
+              Contraindications = request.Contraindications,
+              Price = request.Price
+          };
+          var response = await _grpcClient.UpdateVaccineAsync(requests);
+          return Ok(response);
+        }
+        catch (RpcException ex)
+        {
+            return StatusCode((int)ex.StatusCode, ex.Status.Detail);
+        }
+    }
+
+    [HttpDelete("vaccine/{id}")]
+    public async Task<IActionResult> DeleteVaccine(int id)
+    {
+        try
+        {
+          var request = new VaccineRequest
+          {
+              VaccineId = id,
+          };
+          var response = await _grpcClient.DeleteVaccineAsync(request);
+          return Ok(response);
         }
         catch (RpcException ex)
         {
