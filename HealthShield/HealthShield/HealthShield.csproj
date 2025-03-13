@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -7,9 +7,9 @@
     <InvariantGlobalization>true</InvariantGlobalization>
   </PropertyGroup>
 
-
   <ItemGroup>
     <Protobuf Include="Protos/vaccination.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\user.proto" GrpcServices="Client" />
   </ItemGroup>
 
   <ItemGroup>
