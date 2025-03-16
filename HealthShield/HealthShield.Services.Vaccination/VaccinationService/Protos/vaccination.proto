@@ -39,6 +39,9 @@ message VaccineResponse {
   string recommended_age_range = 4;
   string contraindications = 5;
   double price = 6;
+  string created_at = 7;
+  string updated_at = 8;
+  string staus = 9;
 }
 
 message CreateVaccineRequest {
@@ -56,6 +59,7 @@ message UpdateVaccineRequest {
   string recommended_age_range = 4;
   string contraindications = 5;
   double price = 6;
+  string status = 7;
 }
 
 message PackageRequest {

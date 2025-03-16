@@ -9,10 +9,13 @@ using System.Threading.Tasks;
 public class UserController : ControllerBase
 {
 	private readonly UserService.UserServiceClient _grpcClient;
+  private readonly RabbitMqPublisher _rabbitMqPublisher;
 
-	public UserController(UserService.UserServiceClient grpcClient)
+	public UserController(UserService.UserServiceClient grpcClient, 
+    RabbitMqPublisher rabbitMqPublisher)
 	{
 		_grpcClient = grpcClient;
+    _rabbitMqPublisher = rabbitMqPublisher;
 	}
 
 	[HttpGet("{id}")]
@@ -49,6 +52,9 @@ public class UserController : ControllerBase
 	{
 		try
 		{
+      var message = new RabbitMqMessage<CreateUserRequest> { Entity = "User", Action = "Create",
+        Data = new CreateUserRequest { FullName = "Tridon", Email = "kWYb3@example.com" } };
+      await _rabbitMqPublisher.PublishMessageAsync<CreateUserRequest>(message, exchangeName: "userExchange");
 			var request = new Empty();
 			var response = await _grpcClient.GetAllUsersAsync(request);
 			return Ok(response);

@@ -3,6 +3,7 @@ using Vaccinations;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSingleton<RabbitMqPublisher>();
 // Add services to the container.
 builder.Services.AddGrpcClient<VaccinationService.VaccinationServiceClient>(o =>
 {
@@ -21,6 +22,11 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// Ensure RabbitMQ is initialized at startup
+using (var scope = app.Services.CreateScope())
+{
+    var publisher = scope.ServiceProvider.GetRequiredService<RabbitMqPublisher>();
+}
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

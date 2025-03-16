@@ -6,12 +6,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddGrpc();
+builder.Services.AddSingleton<RabbitMqConsumer>();
 builder.Services.AddDbContext<UserDbContext>(options =>
 	options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
 	  ServerVersion.AutoDetect(builder.Configuration.GetConnectionString("DefaultConnection")))
 );
 
 var app = builder.Build();
+
+var rabbitMqConsumer = app.Services.GetRequiredService<RabbitMqConsumer>();
+await Task.Run(async () => await rabbitMqConsumer.StartConsuming());
 
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();
