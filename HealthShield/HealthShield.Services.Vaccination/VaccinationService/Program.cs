@@ -4,6 +4,7 @@ using VaccinationService.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddSingleton<RabbitMqConsumer>();
 // Add services to the container.
 builder.Services.AddGrpc();
 builder.Services.AddDbContext<VaccinationDbContext>(options =>
@@ -12,6 +13,8 @@ builder.Services.AddDbContext<VaccinationDbContext>(options =>
 );
 
 var app = builder.Build();
+var rabbitMqConsumer = app.Services.GetRequiredService<RabbitMqConsumer>();
+await Task.Run(async () => await rabbitMqConsumer.StartConsuming());
 
 // Configure the HTTP request pipeline.
 app.MapGrpcService<GreeterService>();

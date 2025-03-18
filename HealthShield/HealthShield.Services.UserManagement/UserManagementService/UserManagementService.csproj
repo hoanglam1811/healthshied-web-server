@@ -9,9 +9,11 @@
   <ItemGroup>
 	  <Protobuf Include="Protos\greet.proto" GrpcServices="Server" />
 	  <Protobuf Include="Protos\user.proto" GrpcServices="Server" />
+	  <Protobuf Include="Protos\authentication.proto" GrpcServices="Server" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Grpc.AspNetCore" Version="2.57.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0">
