@@ -6,6 +6,7 @@
 **/[Oo]bj/
 # dotenv files
 .env
+appsettings.Production.json
 
 # User-specific files
 *.rsuser
