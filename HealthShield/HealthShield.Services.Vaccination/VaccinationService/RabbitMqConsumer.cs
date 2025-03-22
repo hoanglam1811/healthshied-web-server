@@ -42,7 +42,7 @@ public class RabbitMqConsumer
             await _channel.BasicAckAsync(ea.DeliveryTag, multiple: false);
         };
 
-        await _channel.BasicConsumeAsync(queue: "userQueue", autoAck: false, consumer: consumer);
+        await _channel.BasicConsumeAsync(queue: "vaccinationQueue", autoAck: false, consumer: consumer);
         Console.WriteLine("🟢 Consumer started. Listening for messages...");
     }
 

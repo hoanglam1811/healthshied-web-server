@@ -37,7 +37,7 @@ message UserResponse {
   string phone = 4;
   string role = 5;
   repeated StaffScheduleResponse staff_schedules = 6;
-   string status = 7;
+  string status = 7;
 }
 
 message CreateUserRequest {

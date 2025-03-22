@@ -16,8 +16,8 @@ public class RabbitMqConsumer
         _channel = _connection.CreateChannelAsync().GetAwaiter().GetResult();
 
         // Declare queue (make sure it exists)
-        _channel.QueueDeclareAsync("userQueue", durable: true, exclusive: false).GetAwaiter().GetResult();
-        _channel.QueueBindAsync("userQueue", "userExchange", "").GetAwaiter().GetResult();
+        _channel.QueueDeclareAsync("paymentQueue", durable: true, exclusive: false).GetAwaiter().GetResult();
+        _channel.QueueBindAsync("paymentQueue", "paymentExchange", "").GetAwaiter().GetResult();
     }
 
     public async Task StartConsuming()
@@ -42,7 +42,7 @@ public class RabbitMqConsumer
             await _channel.BasicAckAsync(ea.DeliveryTag, multiple: false);
         };
 
-        await _channel.BasicConsumeAsync(queue: "userQueue", autoAck: false, consumer: consumer);
+        await _channel.BasicConsumeAsync(queue: "paymentQueue", autoAck: false, consumer: consumer);
         Console.WriteLine("🟢 Consumer started. Listening for messages...");
     }
 
