@@ -9,9 +9,16 @@ public class RabbitMqConsumer
     private readonly IConnection _connection;
     private readonly IChannel _channel;
 
-    public RabbitMqConsumer()
+    public RabbitMqConsumer(IConfiguration configuration)
     {
-        var factory = new ConnectionFactory() { HostName = "localhost" };
+        var rabbitMqConfig = configuration.GetSection("RabbitMQ");
+
+        var factory = new ConnectionFactory()
+        {
+            HostName = rabbitMqConfig["Host"] ?? "",
+            UserName = rabbitMqConfig["User"] ?? "",
+            Password = rabbitMqConfig["Password"] ?? ""
+        };        
         _connection = factory.CreateConnectionAsync().GetAwaiter().GetResult();
         _channel = _connection.CreateChannelAsync().GetAwaiter().GetResult();
 

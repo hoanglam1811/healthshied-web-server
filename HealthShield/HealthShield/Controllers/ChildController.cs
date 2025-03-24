@@ -61,6 +61,23 @@ namespace HealthShield.Controllers
 			}
 		}
 
+    [HttpGet("by-customer-id/{id}")]
+		public async Task<IActionResult> GetAllChildrenByCustomer(int id)
+		{
+			try
+			{
+				var request = new UserRequest{
+          UserId = id
+        };
+				var response = await _grpcClient.GetChildByCustomerIdAsync(request);
+				return Ok(response);
+			}
+			catch (RpcException ex)
+			{
+				return StatusCode((int)ex.StatusCode, ex.Status.Detail);
+			}
+		}
+
 		[HttpPut("{id}")]
 		public async Task<IActionResult> UpdateChild(int id, [FromBody] UpdateChildRequest request)
 		{

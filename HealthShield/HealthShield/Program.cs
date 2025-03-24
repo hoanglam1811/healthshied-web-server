@@ -13,17 +13,17 @@ builder.Services.AddSingleton<RabbitMqPublisher>();
 // Add services to the container.
 builder.Services.AddGrpcClient<VaccinationService.VaccinationServiceClient>(o =>
 {
-    o.Address = new Uri("http://localhost:5193");
+    o.Address = new Uri(builder.Configuration["VaccinationService:Url"] ?? "");
 });
 
 builder.Services.AddGrpcClient<UserService.UserServiceClient>(o =>
 {
-	o.Address = new Uri("http://localhost:5031");
+	o.Address = new Uri(builder.Configuration["UserService:Url"] ?? "");
 });
 
 builder.Services.AddGrpcClient<AuthenticationService.AuthenticationServiceClient>(o =>
 {
-	o.Address = new Uri("http://localhost:5031");
+	o.Address = new Uri(builder.Configuration["UserService:Url"] ?? "");
 });
 
 builder.Services.AddScoped<JwtService>();
@@ -105,11 +105,11 @@ using (var scope = app.Services.CreateScope())
     var publisher = scope.ServiceProvider.GetRequiredService<RabbitMqPublisher>();
 }
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
+// if (app.Environment.IsDevelopment())
+// {
 	app.UseSwagger();
 	app.UseSwaggerUI();
-}
+// }
 
 app.UseHttpsRedirection();
 app.UseCors("MyAllowPolicy");

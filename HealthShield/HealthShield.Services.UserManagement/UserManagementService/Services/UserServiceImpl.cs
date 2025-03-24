@@ -41,7 +41,7 @@ namespace UserManagementService.Services
 				Email = request.Email,
 				Phone = request.Phone,
 				Role = request.Role,
-				PasswordHash = request.Password,
+				PasswordHash = PasswordManager.HashPassword(request.Password),
 				Status = "Active"
 			};
 			_dbContext.Users.Add(user);
@@ -83,7 +83,8 @@ namespace UserManagementService.Services
 			user.FullName = request.FullName;
 			user.Email = request.Email;
 			user.Phone = request.Phone;
-			user.Role = request.Role;
+			if(!string.IsNullOrEmpty(request.Role))
+        user.Role = request.Role;
 			await _dbContext.SaveChangesAsync();
 
 			return new UserResponse
@@ -119,7 +120,8 @@ namespace UserManagementService.Services
 					UserId = c.UserId,
 					FullName = c.FullName,
 					Birthday = c.Birthday.ToString("yyyy-MM-dd"),
-					Gender = c.Gender
+					Gender = c.Gender,
+          Status = c.Status
 				}) }
 			};
 		}
@@ -131,7 +133,8 @@ namespace UserManagementService.Services
 				UserId = request.UserId,
 				FullName = request.FullName,
 				Birthday = DateTime.Parse(request.Birthday),
-				Gender = request.Gender
+				Gender = request.Gender,
+        Status = "Active"
 			};
 			_dbContext.Children.Add(child);
 			await _dbContext.SaveChangesAsync();
@@ -141,7 +144,8 @@ namespace UserManagementService.Services
 				UserId = child.UserId,
 				FullName = child.FullName,
 				Birthday = child.Birthday.ToString("yyyy-MM-dd"),
-				Gender = child.Gender
+				Gender = child.Gender,
+        Status = child.Status
 			};
 		}
 
@@ -169,7 +173,8 @@ namespace UserManagementService.Services
 				UserId = child.UserId,
 				FullName = child.FullName,
 				Birthday = child.Birthday.ToString("yyyy-MM-dd"),
-				Gender = child.Gender
+				Gender = child.Gender,
+        Status = child.Status
 			};
 		}
 
@@ -183,7 +188,8 @@ namespace UserManagementService.Services
 				UserId = c.UserId,
 				FullName = c.FullName,
 				Birthday = c.Birthday.ToString("yyyy-MM-dd"),
-				Gender = c.Gender
+				Gender = c.Gender,
+        Status = c.Status
 			}));
 			return response;
 		}

@@ -15,9 +15,16 @@ public class RabbitMqPublisher : IDisposable
     private const string UserExchange = "userExchange";
     private const string VaccinationExchange = "vaccinationExchange";
 
-    public RabbitMqPublisher()
+    public RabbitMqPublisher(IConfiguration configuration)
     {
-        var factory = new ConnectionFactory() { HostName = "localhost" }; // RabbitMQ running locally
+        var rabbitMqConfig = configuration.GetSection("RabbitMQ");
+
+        var factory = new ConnectionFactory()
+        {
+            HostName = rabbitMqConfig["Host"] ?? "",
+            UserName = rabbitMqConfig["User"] ?? "",
+            Password = rabbitMqConfig["Password"] ?? ""
+        };
 
         _connection = factory.CreateConnectionAsync().GetAwaiter().GetResult();
         _channel = _connection.CreateChannelAsync().GetAwaiter().GetResult();
