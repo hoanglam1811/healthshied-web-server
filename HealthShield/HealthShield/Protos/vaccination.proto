@@ -11,14 +11,14 @@ service VaccinationService {
 
   rpc GetPackageById (PackageRequest) returns (PackageResponse);
   rpc CreatePackage (CreatePackageRequest) returns (PackageResponse);
-  rpc GetAllPackages (Empty) returns (PackageResponse);
-  // rpc UpdatePackage () returns (PackageResponse);
+  rpc GetAllPackages (Empty) returns (PackagesResponse);
+  rpc UpdatePackage (UpdatePackageRequest) returns (PackageResponse);
   rpc DeletePackage (PackageRequest) returns (PackageResponse);
   
   rpc GetVaccinationRecordById (VaccinationRecordRequest) returns (VaccinationRecordResponse);
   rpc CreateVaccinationRecord (CreateVaccinationRecordRequest) returns (VaccinationRecordResponse);
-  rpc GetAllVaccinationRecords (Empty) returns (VaccinationRecordResponse);
-  // rpc UpdateVaccinationRecord () returns (VaccinationRecordResponse);
+  rpc GetAllVaccinationRecords (Empty) returns (VaccinationRecordsResponse);
+  rpc UpdateVaccinationRecord (UpdateVaccinationRecordRequest) returns (VaccinationRecordResponse);
   rpc DeleteVaccinationRecord (VaccinationRecordRequest) returns (VaccinationRecordResponse);
 }
 
@@ -39,6 +39,9 @@ message VaccineResponse {
   string recommended_age_range = 4;
   string contraindications = 5;
   double price = 6;
+  string created_at = 7;
+  string updated_at = 8;
+  string status = 9;
 }
 
 message CreateVaccineRequest {
@@ -56,6 +59,7 @@ message UpdateVaccineRequest {
   string recommended_age_range = 4;
   string contraindications = 5;
   double price = 6;
+  string status = 7;
 }
 
 message PackageRequest {
@@ -81,11 +85,19 @@ message CreatePackageRequest {
   repeated int32 vaccine_ids = 4;
 }
 
+message UpdatePackageRequest {
+  int32 id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  repeated int32 vaccine_ids = 5;
+}
+
 message VaccinationRecordRequest {
   int32 record_id = 1;
 }
 
-message VaccinationsResponse {
+message VaccinationRecordsResponse {
   repeated VaccinationRecordResponse vacccination_records = 1;
 }
 
@@ -100,4 +112,11 @@ message CreateVaccinationRecordRequest {
   int32 appointment_id = 1;
   int32 administered_by = 2;
   string reaction_notes = 3;
+}
+
+message UpdateVaccinationRecordRequest {
+  int32 id = 1;
+  int32 appointment_id = 2;
+  int32 administered_by = 3;
+  string reaction_notes = 4;
 }
